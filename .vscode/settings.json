@@ -1,0 +1,4 @@
+{
+    "python.pythonPath": "/Users/timohermans/opt/miniconda3/envs/homebank/bin/python",
+    "python.linting.pylintEnabled": true
+}
