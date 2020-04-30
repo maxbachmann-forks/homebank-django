@@ -5,7 +5,7 @@ from decimal import InvalidOperation, Decimal
 from django.core.exceptions import ValidationError
 from django.db import models
 
-from transaction_management.utils import create_unique_code
+from homebank.transaction_management.utils import create_unique_code
 
 
 class FileParseResult:
@@ -56,7 +56,7 @@ class RabobankCsvRowParser:
     positive_amount_character = '+'
 
     def parse(self, row: list):
-        from transaction_management.models import Transaction
+        from homebank.transaction_management.models import Transaction
 
         amount_str = self._get_amount_str(row)
         is_positive_amount = amount_str[0] == self.positive_amount_character

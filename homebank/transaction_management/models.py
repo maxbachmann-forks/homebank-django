@@ -4,7 +4,7 @@ from django.db import models
 from fuzzywuzzy import process, fuzz
 
 # Create your models here.
-from transaction_management.managers import TransactionManager
+from homebank.transaction_management.managers import TransactionManager
 
 
 class Category(models.Model):

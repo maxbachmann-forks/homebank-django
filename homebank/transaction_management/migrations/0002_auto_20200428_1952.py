@@ -2,7 +2,7 @@
 
 from django.db import migrations
 
-from transaction_management.migrations.utils import seed_categories
+from homebank.transaction_management.migrations.utils import seed_categories
 
 
 class Migration(migrations.Migration):

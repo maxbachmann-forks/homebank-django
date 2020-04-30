@@ -1,7 +1,7 @@
 import pytest
 
-from transaction_management.managers import RabobankCsvRowParser
-from transaction_management.models import Transaction
+from homebank.transaction_management.managers import RabobankCsvRowParser
+from homebank.transaction_management.models import Transaction
 from datetime import date
 
 from homebank.users.models import User

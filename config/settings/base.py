@@ -73,8 +73,7 @@ DJANGO_APPS = [
     "django.contrib.staticfiles",
     # "django.contrib.humanize", # Handy template tags
     "django.contrib.admin",
-    "django.forms",
-    "transaction_management.apps.TransactionManagementConfig"
+    "django.forms"
 ]
 THIRD_PARTY_APPS = [
     "crispy_forms",
@@ -85,6 +84,9 @@ THIRD_PARTY_APPS = [
 
 LOCAL_APPS = [
     "homebank.users.apps.UsersConfig",
+    "homebank.transaction_management.apps.TransactionManagementConfig",
+    "homebank.expenses.apps.ExpensesConfig"
+
     # Your stuff: custom apps go here
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps

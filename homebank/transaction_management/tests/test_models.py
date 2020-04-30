@@ -6,8 +6,8 @@ from django.test import TestCase
 from homebank.users.models import User
 from django.core.exceptions import ValidationError
 
-from transaction_management.models import Transaction, Category
-from transaction_management.tests.utils import create_transaction
+from homebank.transaction_management.models import Transaction, Category
+from homebank.transaction_management.tests.utils import create_transaction
 
 def create_test_transaction():
     user = User.objects.create_user('transaction test user')

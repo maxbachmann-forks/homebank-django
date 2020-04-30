@@ -3,8 +3,8 @@ from datetime import date
 
 from django.contrib.auth.models import User
 
-from transaction_management.models import Transaction
-from transaction_management.utils import create_unique_code
+from homebank.transaction_management.models import Transaction
+from homebank.transaction_management.utils import create_unique_code
 
 
 def open_file(file_path, options='r'):

@@ -3,7 +3,7 @@ import pytest
 from django.contrib.messages import get_messages
 from homebank.users.models import User
 
-from transaction_management.tests.utils import open_file
+from homebank.transaction_management.tests.utils import open_file
 
 
 class TestTransactionAdmin:
