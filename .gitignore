@@ -319,3 +319,4 @@ tags
 homebank/media/
 
 .pytest_cache/
+.idea/
