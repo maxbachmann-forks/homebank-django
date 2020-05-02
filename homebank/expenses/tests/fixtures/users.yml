@@ -1,0 +1,34 @@
+- model: users.user
+  pk: 1
+  fields:
+    password: argon2$argon2i$v=19$m=512,t=2,p=2$S1h5dXdUSHJZSFlW$7rq8GF7IWwqaTbRdyGf0DA
+    last_login: 2020-04-29 05:55:19.862448+00:00
+    is_superuser: false
+    username: timohermans
+    first_name: ''
+    last_name: ''
+    email: tmhermans@gmail.com
+    is_staff: false
+    is_active: true
+    date_joined: 2020-04-29 05:54:55.844578+00:00
+    name: Timo Hermans
+    bio: "Dit is mijn bio!\r\n\r\nIk doe altijd rare dingen :)"
+    groups: []
+    user_permissions: []
+- model: users.user
+  pk: 2
+  fields:
+    password: argon2$argon2i$v=19$m=512,t=2,p=2$Rk52TUZiaEI3c3po$5C27tITqB9847eJxIa4SeQ
+    last_login: 2020-04-30 17:38:24.630955+00:00
+    is_superuser: true
+    username: admin
+    first_name: ''
+    last_name: ''
+    email: admin@admin.nl
+    is_staff: true
+    is_active: true
+    date_joined: 2020-04-30 17:38:15.786274+00:00
+    name: ''
+    bio: ''
+    groups: []
+    user_permissions: []

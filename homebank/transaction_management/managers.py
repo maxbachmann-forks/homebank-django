@@ -1,11 +1,13 @@
 import csv
-from datetime import datetime
+from datetime import datetime, date
 from decimal import InvalidOperation, Decimal
 
 from django.core.exceptions import ValidationError
 from django.db import models
+from django.db.models import Max, Min, Q, Sum
 
-from homebank.transaction_management.utils import create_unique_code
+from .utils import create_unique_code
+from homebank.users.models import User
 
 
 class FileParseResult:
@@ -44,6 +46,21 @@ class TransactionManager(models.Manager):
                 result.amount_faulty += 1
         except (InvalidOperation, IndexError, ValueError):
             result.amount_faulty += 1
+
+
+class CategoryManager(models.Manager):
+    def overview_for_month(self, month: date, user: User):
+        month_subquery = Q(transactions__date__month=month.month, transactions__user=user)
+        total_subquery = Q(transactions__user=user)
+        # .filter(transactions__user=user)
+        return super().get_queryset().annotate(
+            sum_outflow=Sum("transactions__outflow", filter=month_subquery),
+            sum_inflow=Sum("transactions__inflow", filter=month_subquery),
+            min_date=Min("transactions__date", filter=total_subquery),
+            max_date=Max("transactions__date", filter=total_subquery),
+            total_outflow=Sum("transactions__outflow", filter=total_subquery),
+            total_inflow=Sum("transactions__inflow", filter=total_subquery)
+        )
 
 
 class RabobankCsvRowParser:

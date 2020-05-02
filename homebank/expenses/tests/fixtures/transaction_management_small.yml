@@ -1,0 +1,75 @@
+- model: transaction_management.category
+  pk: 1
+  fields:
+    name: Hypotheek
+    description: Vaste lasten voor je huis
+- model: transaction_management.category
+  pk: 2
+  fields:
+    name: Woning
+    description: Uitgaven aan uw woning, zoals de uitgaven voor onderhoud van uw woning
+      en inboedel. De netto woonlasten van uw huur- of koopwoning zijn hierbij niet
+      inbegrepen. Dit zijn de kosten voor huur of hypotheek.
+- model: transaction_management.transaction
+  pk: 4
+  fields:
+    code: 4d30df03b6af91dc884b979303df63f3
+    to_account_number: NL11RABO0104943866
+    date: 2020-02-02
+    payee: Lidl 176 Sittard Ind SITTARD
+    memo: Betaalautomaat 15:10 pasnr. 008
+    outflow: '10'
+    inflow: null
+    category: 2
+    user: 2
+- model: transaction_management.transaction
+  pk: 5
+  fields:
+    code: b7ab305849ee80b8081ec4ff47f89d16
+    to_account_number: NL11RABO0104943866
+    date: 2019-12-29
+    payee: Jan Linders Sittard SITTARD
+    memo: Betaalautomaat 15:18 pasnr. 008
+    outflow: '20'
+    inflow: null
+    category: 2
+    user: 2
+- model: transaction_management.transaction
+  pk: 14
+  fields:
+    code: d054eab26eba1ac020cd403484b510af
+    to_account_number: NL11RABO0104943866
+    date: 2020-02-04
+    payee: STICHTING HYPOTHEKEN INCASSO
+    memo: 'HYPOTHEEK (800) 01/20  915429969RENTE    348,85 AFLOS    335,29 (Incasso:
+      10535024)'
+    outflow: '911.11'
+    inflow: null
+    category: 1
+    user: 2
+- model: transaction_management.transaction
+  pk: 15
+  fields:
+    code: d054eab26eba1ac020cd403484b510ae
+    to_account_number: NL11RABO0104943866
+    date: 2020-01-04
+    payee: STICHTING HYPOTHEKEN INCASSO
+    memo: 'HYPOTHEEK (800) 01/20  915429969RENTE    348,85 AFLOS    335,29 (Incasso:
+      10535024)'
+    outflow: '911.11'
+    inflow: null
+    category: 1
+    user: 2
+- model: transaction_management.transaction
+  pk: 16
+  fields:
+    code: d054eab26eba1ac020cd403484b510az
+    to_account_number: NL11RABO0104943866
+    date: 2020-02-04
+    payee: STICHTING HYPOTHEKEN INCASSO other user
+    memo: 'HYPOTHEEK (800) 01/20  915429969RENTE    348,85 AFLOS    335,29 (Incasso:
+      10535024)'
+    outflow: '911.11'
+    inflow: null
+    category: 1
+    user: 1

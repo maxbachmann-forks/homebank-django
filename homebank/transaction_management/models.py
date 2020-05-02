@@ -4,10 +4,11 @@ from django.db import models
 from fuzzywuzzy import process, fuzz
 
 # Create your models here.
-from homebank.transaction_management.managers import TransactionManager
+from homebank.transaction_management.managers import TransactionManager, CategoryManager
 
 
 class Category(models.Model):
+    objects = CategoryManager()
     name = models.CharField(max_length=50)
     description = models.TextField(blank=False, null=True)
 
@@ -30,7 +31,7 @@ class Transaction(models.Model):
     outflow = models.DecimalField(decimal_places=2, max_digits=10, blank=True, null=True)
     inflow = models.DecimalField(decimal_places=2, max_digits=10, blank=True, null=True)
     category = models.ForeignKey(
-        Category, models.SET_NULL, blank=True, null=True)
+        Category, models.SET_NULL, blank=True, null=True, related_name="transactions")
     user = models.ForeignKey(User, models.CASCADE, related_name='transactions')
 
     @property
