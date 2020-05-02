@@ -8,6 +8,7 @@ from django.db.models import Max, Min, Q, Sum
 
 from .utils import create_unique_code
 from homebank.users.models import User
+from homebank.expenses.models import MonthlyExpenseSummary
 
 
 class FileParseResult:
@@ -52,8 +53,8 @@ class CategoryManager(models.Manager):
     def overview_for_month(self, month: date, user: User):
         month_subquery = Q(transactions__date__month=month.month, transactions__user=user)
         total_subquery = Q(transactions__user=user)
-        # .filter(transactions__user=user)
-        return super().get_queryset().annotate(
+
+        query_result = super().get_queryset().annotate(
             sum_outflow=Sum("transactions__outflow", filter=month_subquery),
             sum_inflow=Sum("transactions__inflow", filter=month_subquery),
             min_date=Min("transactions__date", filter=total_subquery),
@@ -61,6 +62,8 @@ class CategoryManager(models.Manager):
             total_outflow=Sum("transactions__outflow", filter=total_subquery),
             total_inflow=Sum("transactions__inflow", filter=total_subquery)
         )
+
+        return [MonthlyExpenseSummary(month, category) for category in query_result]
 
 
 class RabobankCsvRowParser:

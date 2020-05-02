@@ -7,7 +7,8 @@
   pk: 2
   fields:
     name: Woning
-    description: Uitgaven aan uw woning, zoals de uitgaven voor onderhoud van uw woning
+    description:
+      Uitgaven aan uw woning, zoals de uitgaven voor onderhoud van uw woning
       en inboedel. De netto woonlasten van uw huur- of koopwoning zijn hierbij niet
       inbegrepen. Dit zijn de kosten voor huur of hypotheek.
 - model: transaction_management.transaction
@@ -18,7 +19,7 @@
     date: 2020-02-02
     payee: Lidl 176 Sittard Ind SITTARD
     memo: Betaalautomaat 15:10 pasnr. 008
-    outflow: '10'
+    outflow: "10"
     inflow: null
     category: 2
     user: 2
@@ -30,7 +31,7 @@
     date: 2019-12-29
     payee: Jan Linders Sittard SITTARD
     memo: Betaalautomaat 15:18 pasnr. 008
-    outflow: '20'
+    outflow: "20"
     inflow: null
     category: 2
     user: 2
@@ -41,9 +42,10 @@
     to_account_number: NL11RABO0104943866
     date: 2020-02-04
     payee: STICHTING HYPOTHEKEN INCASSO
-    memo: 'HYPOTHEEK (800) 01/20  915429969RENTE    348,85 AFLOS    335,29 (Incasso:
-      10535024)'
-    outflow: '911.11'
+    memo:
+      "HYPOTHEEK (800) 01/20  915429969RENTE    348,85 AFLOS    335,29 (Incasso:
+      10535024)"
+    outflow: "911.11"
     inflow: null
     category: 1
     user: 2
@@ -54,9 +56,10 @@
     to_account_number: NL11RABO0104943866
     date: 2020-01-04
     payee: STICHTING HYPOTHEKEN INCASSO
-    memo: 'HYPOTHEEK (800) 01/20  915429969RENTE    348,85 AFLOS    335,29 (Incasso:
-      10535024)'
-    outflow: '911.11'
+    memo:
+      "HYPOTHEEK (800) 01/20  915429969RENTE    348,85 AFLOS    335,29 (Incasso:
+      10535024)"
+    outflow: "911.11"
     inflow: null
     category: 1
     user: 2
@@ -67,9 +70,58 @@
     to_account_number: NL11RABO0104943866
     date: 2020-02-04
     payee: STICHTING HYPOTHEKEN INCASSO other user
-    memo: 'HYPOTHEEK (800) 01/20  915429969RENTE    348,85 AFLOS    335,29 (Incasso:
-      10535024)'
-    outflow: '911.11'
+    memo:
+      "HYPOTHEEK (800) 01/20  915429969RENTE    348,85 AFLOS    335,29 (Incasso:
+      10535024)"
+    outflow: "911.11"
     inflow: null
     category: 1
     user: 1
+- model: transaction_management.transaction
+  pk: 17
+  fields:
+    code: d054eab26eba1ac020cd403484b51012
+    to_account_number: NL11RABO0104943866
+    date: 2020-02-04
+    payee: Bios 1
+    memo: Derpiderp
+    outflow: "18.50"
+    inflow: null
+    category: 6
+    user: 2
+- model: transaction_management.transaction
+  pk: 18
+  fields:
+    code: d054eab26eba1ac020cd403484b51013
+    to_account_number: NL11RABO0104943866
+    date: 2020-02-04
+    payee: Bios 2
+    memo: Derpiderp
+    outflow: "50.00"
+    inflow: null
+    category: 6
+    user: 2
+- model: transaction_management.transaction
+  pk: 19
+  fields:
+    code: d054eab26eba1ac020cd403484b51014
+    to_account_number: NL11RABO0104943866
+    date: 2020-02-04
+    payee: Bios 2
+    memo: Derpiderp
+    outflow: null
+    inflow: "35"
+    category: 6
+    user: 2
+- model: transaction_management.transaction
+  pk: 20
+  fields:
+    code: d054eab26eba1ac020cd403484b51015
+    to_account_number: NL11RABO0104943866
+    date: 2020-01-04
+    payee: Bios 2
+    memo: Derpiderp
+    outflow: null
+    inflow: "10"
+    category: 6
+    user: 2
