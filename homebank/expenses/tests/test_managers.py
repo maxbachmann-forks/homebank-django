@@ -72,9 +72,9 @@ def test_calculates_averages_from_query_results(february_overview: MonthlyExpens
     # note there's no january outflow for "house", but it needs to be included!
     assert house.average_monthly_outflow == Decimal("10")
     assert empty.average_monthly_outflow == 0
+    assert empty.average_monthly_inflow == 0
 
     assert free_time.balance_of_month == Decimal("-33.50")
     assert free_time.average_monthly_outflow == Decimal("34.25")
     assert free_time.average_monthly_inflow == Decimal("22.5")
     assert free_time.average_monthly_balance == Decimal("-11.75")
-# -16.75
