@@ -7,7 +7,7 @@ from django.contrib.admin import SimpleListFilter
 # Register your models here.
 from django.urls import path
 
-from .models import Transaction
+from .models import Transaction, Category
 from .forms import CsvImportForm
 
 
@@ -39,7 +39,7 @@ class CategoryAssignFilter(SimpleListFilter):
 class TransactionAdmin(admin.ModelAdmin):
     list_display = ('id', 'date', 'category', 'payee', 'inflow', 'outflow', 'memo')
     list_filter = ['category', CategoryAssignFilter]
-    readonly_fields = ('to_account_number', 'date', 'payee', 'memo', 'inflow', 'outflow')
+    readonly_fields = ('to_account_number', 'date', 'payee', 'memo')
     search_fields = ['payee', 'memo']
     change_list_template = "admin/transaction_management/change_list.html"
 
@@ -74,3 +74,4 @@ class TransactionAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Transaction, TransactionAdmin)
+admin.site.register(Category)

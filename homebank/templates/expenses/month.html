@@ -13,14 +13,19 @@ Expenses for month {{ date }}
 <div class="card">
   <div class="card-body shadow-sm">
     <p>
-      Uitgaven per maand.
+      Uitgaven deze maand:
     </p>
     <h4>
+      {{ total_spent }}
     </h4>
     <ul>
       {% for category in expenses_per_category %}
       <li>
         <b>{{ category.name }}</b>
+        <div>
+          <div>progress</div>
+          <div>{{ category.balance_of_month }}</div>
+        </div>
       </li>
       {% endfor %}
     </ul>

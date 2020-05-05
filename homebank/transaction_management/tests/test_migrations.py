@@ -7,6 +7,7 @@ pytestmark = pytest.mark.django_db
 
 
 class MigrationApp:
+
     def get_model(self, app, model_name):
         return Category
 
@@ -14,8 +15,7 @@ class MigrationApp:
 @pytest.fixture(autouse=True)
 def clean_categories():
     categories = Category.objects.all()
-    for category in categories:
-        category.delete()
+    [category.delete() for category in categories]
 
 
 def test_category_seed():

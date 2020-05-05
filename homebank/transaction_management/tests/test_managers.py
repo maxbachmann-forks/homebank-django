@@ -2,12 +2,17 @@ import pytest
 
 from homebank.transaction_management.managers import RabobankCsvRowParser
 from homebank.transaction_management.models import Transaction
-from datetime import date
+from datetime import date, datetime
 
 from homebank.users.models import User
+from homebank.users.tests.factories import UserFactory
+from homebank.transaction_management.tests.factories import TransactionFactory
+from decimal import Decimal
 
 
+@pytest.mark.django_db
 class TestTransactionManager:
+
     def test_retrieves_only_own_transactions(self):
         user = User.objects.create_superuser('test 1')
 
@@ -27,12 +32,21 @@ class TestTransactionManager:
         assert len(user_2.transactions.all()) == 0
         assert len(Transaction.objects.for_user(user_2)) == 0
 
+    def test_gets_total_spent_for_month(self):
+        date = datetime(2020, 2, 1)
+        user = UserFactory()
+        TransactionFactory(user=user, date=date, category=None, inflow=600, outflow=0)
+        TransactionFactory.create_batch(size=50, outflow=10, inflow=1, date=date, user=user)
+        total_spent = Transaction.objects.total_spent_for_month(date, user)
+        assert total_spent == Decimal((1 * 50) - (10 * 50))
+
 
 @pytest.fixture
 def parser():
     return RabobankCsvRowParser()
 
 
+@pytest.mark.django_db
 class TestRabobankCsvRowParser:
     def test_parses_inflow_transaction(self, parser):
         user = User.objects.create_user("timo")

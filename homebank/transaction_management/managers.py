@@ -22,6 +22,13 @@ class TransactionManager(models.Manager):
     def for_user(self, user):
         return super(TransactionManager, self).get_queryset().filter(user=user)
 
+    def total_spent_for_month(self, month: date, user: User):
+        result = self.for_user(user).filter(
+            date__year=month.year, date__month=month.month, category__isnull=False).aggregate(
+                total_outflow=Sum('outflow'), total_inflow=Sum('inflow'))
+
+        return Decimal(result['total_inflow'] or 0) - Decimal(result['total_outflow'] or 0)
+
     def create_from_file(self, file_stream, user) -> FileParseResult:
         result = FileParseResult()
         parser = RabobankCsvRowParser()
@@ -51,10 +58,13 @@ class TransactionManager(models.Manager):
 
 class CategoryManager(models.Manager):
     def overview_for_month(self, month: date, user: User):
-        month_subquery = Q(transactions__date__month=month.month, transactions__user=user)
-        total_subquery = Q(transactions__user=user)
+        month_subquery = Q(transactions__date__year=month.year,
+                           transactions__date__month=month.month, transactions__user__id=user.id)
+        total_subquery = Q(transactions__user__id=user.id)
 
-        query_result = super().get_queryset().annotate(
+        query_set = super(CategoryManager, self).get_queryset()
+
+        query_result = query_set.annotate(
             sum_outflow=Sum("transactions__outflow", filter=month_subquery),
             sum_inflow=Sum("transactions__inflow", filter=month_subquery),
             min_date=Min("transactions__date", filter=total_subquery),
