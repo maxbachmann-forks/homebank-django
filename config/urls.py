@@ -24,6 +24,7 @@ urlpatterns = [
         include("homebank.users.urls", namespace="users"),
     ),
     path("accounts/", include("allauth.urls")),
+    path("expenses/", include('homebank.expenses.urls', namespace="expenses"))
     # Your stuff: custom urls includes go here
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

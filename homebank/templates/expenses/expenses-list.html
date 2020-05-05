@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}Expenses{% endblock title %}
+
+{% block content %}
+<h2>Expenses list</h2>
+
+<ul>
+  {% for category in object_list %}
+    <li>
+        <a href="#TODO">
+          {{category.name}} - {{category.balance_of_month}}
+        </a>
+    </li>
+  {% endfor %}
+</ul>
+{% endblock content %}
