@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load absolute_price %}
 
 
 {% block title %}
@@ -16,7 +17,7 @@ Expenses for month {{ date }}
       Uitgaven deze maand:
     </p>
     <h4>
-      {{ total_spent }}
+      {{ total_spent|absolute_price }}
     </h4>
     <ul>
       {% for category in expenses_per_category %}
@@ -24,7 +25,7 @@ Expenses for month {{ date }}
         <b>{{ category.name }}</b>
         <div>
           <div>progress</div>
-          <div>{{ category.balance_of_month }}</div>
+          <div>{{ category.balance_of_month|absolute_price }}</div>
         </div>
       </li>
       {% endfor %}
