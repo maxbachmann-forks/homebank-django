@@ -1,35 +1,44 @@
 {% extends 'base.html' %}
 {% load absolute_price %}
+{% load percentage_of %}
+{% load sass_tags %}
+
+{% block page_css %}
+  <link href="{% sass_src 'sass/expenses.scss' %}" rel="stylesheet" type="text/css"/>
+{% endblock %}
 
 
 {% block title %}
-Expenses for month {{ date }}
+  {{ date }} | Expenses
 {% endblock title %}
 
 
 
 {% block content %}
-<h1>Uitgaven {{ date }}</h1>
+  <h1>Uitgaven {{ date }}</h1>
 
-<div class="card">
-  <div class="card-body shadow-sm">
-    <p>
-      Uitgaven deze maand:
-    </p>
-    <h4>
-      {{ total_spent|absolute_price }}
-    </h4>
-    <ul>
-      {% for category in expenses_per_category %}
-      <li>
-        <b>{{ category.name }}</b>
-        <div>
-          <div>progress</div>
-          <div>{{ category.balance_of_month|absolute_price }}</div>
-        </div>
-      </li>
-      {% endfor %}
-    </ul>
+  <div class="card">
+    <div class="card-body shadow-sm">
+      <p>
+        Uitgaven deze maand:
+      </p>
+      <h4>
+        {{ total_spent|absolute_price }}
+      </h4>
+      <hr/>
+      <ul class="month-list">
+        {% for category in expenses_per_category %}
+          <li>
+            <b>{{ category.name }}</b>
+            <div class="d-flex">
+              <div class="flex-grow-1">
+                <progress class="w-100" max="100" value="{{ category.balance_of_month|percentage_of:total_spent }}"/>
+              </div>
+              <div class="flex-grow-1 text-align-left ml-2">{{ category.balance_of_month|absolute_price }}</div>
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
   </div>
-</div>
 {% endblock content %}

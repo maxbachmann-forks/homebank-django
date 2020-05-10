@@ -80,6 +80,7 @@ THIRD_PARTY_APPS = [
     "allauth",
     "allauth.account",
     "allauth.socialaccount",
+    "sass_processor"
 ]
 
 LOCAL_APPS = [
@@ -167,7 +168,10 @@ STATICFILES_DIRS = [str(APPS_DIR.path("static"))]
 STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.FileSystemFinder",
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
+    "sass_processor.finders.CssFinder",
 ]
+# https://pypi.org/project/django-sass-processor
+SASS_PROCESSOR_ROOT = STATIC_ROOT
 
 # MEDIA
 # ------------------------------------------------------------------------------

@@ -1,23 +1,18 @@
-from django.shortcuts import render
-from django.views.generic import ListView, TemplateView
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth import get_user_model
-
 from datetime import datetime
 
+from dateutil.relativedelta import relativedelta
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.urls import reverse
+from django.views.generic import TemplateView, RedirectView
+
 from homebank.transaction_management.models import Category, Transaction
-from homebank.expenses.models import MonthlyExpenseSummary
 
 
-class MonthlyExpensesListView(LoginRequiredMixin, ListView):  # TODO: I know this needs to be a normal TemplateView
-    def get_template_names(self):
-        return ['expenses/expenses-list.html']
+class RedirectToMonthView(LoginRequiredMixin, RedirectView):  # TODO: I know this needs to be a normal TemplateView
+    def get_redirect_url(self, *args, **kwargs):
+        previous_month = datetime.now() - relativedelta(months=1)
+        return reverse('expenses:month', kwargs={'date': previous_month.strftime('%Y-%m')})
 
-    def get_queryset(self):
-        today = datetime(2020, 2, 1)
-        queryset = Category.objects.overview_for_month(today, self.request.user)
-        print(queryset)
-        return queryset
 
 
 class MonthView(LoginRequiredMixin, TemplateView):

@@ -4,6 +4,7 @@ Pillow==7.1.1  # https://github.com/python-pillow/Pillow
 argon2-cffi==19.2.0  # https://github.com/hynek/argon2_cffi
 whitenoise==5.0.1  # https://github.com/evansd/whitenoise
 unidecode==1.1.1 # https://pypi.org/project/Unidecode/
+python-dateutil~=2.8.1
 
 # Django
 # ------------------------------------------------------------------------------
@@ -13,3 +14,6 @@ django-model-utils==4.0.0  # https://github.com/jazzband/django-model-utils
 django-allauth==0.41.0  # https://github.com/pennersr/django-allauth
 django-crispy-forms==1.9.0  # https://github.com/django-crispy-forms/django-crispy-forms
 django-autoslug==1.9.6  # https://github.com/justinmayer/django-autoslug/
+django_compressor==2.4 # https://pypi.org/project/django-compressor/
+django-sass-processor==0.8 # https://pypi.org/project/django-sass-processor/
+
