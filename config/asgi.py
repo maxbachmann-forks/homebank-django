@@ -12,7 +12,6 @@ import sys
 
 from django.core.asgi import get_asgi_application
 
-
 # This allows easy placement of apps within the interior
 # homebank directory.
 app_path = os.path.abspath(

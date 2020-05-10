@@ -1,5 +1,5 @@
 from django import forms
-from homebank.transaction_management.models import Transaction
+
 from homebank.transaction_management.managers import RabobankCsvRowParser
 from homebank.utils import FileValidator, csv_content_types_allowed
 

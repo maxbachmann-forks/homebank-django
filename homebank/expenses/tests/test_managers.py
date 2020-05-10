@@ -1,18 +1,16 @@
 # when visiting the expenses page
 # I can see a sum of expenses per category
 # and behind those an average of the past year
-import pytest
 from datetime import datetime, date
-from pathlib import Path
 from decimal import Decimal
+from pathlib import Path
 
-from django.test.client import Client
+import pytest
 from django.core.management import call_command
 
-from homebank.transaction_management.models import Category, Transaction
-from homebank.users.models import User
 from homebank.expenses.models import MonthlyExpenseSummary
-
+from homebank.transaction_management.models import Category
+from homebank.users.models import User
 
 pytestmark = pytest.mark.django_db
 

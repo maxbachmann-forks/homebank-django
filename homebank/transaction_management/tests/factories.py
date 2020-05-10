@@ -1,11 +1,9 @@
 from datetime import datetime
-from decimal import Decimal
+
 from factory import DjangoModelFactory, Faker, fuzzy, SubFactory
 
 from homebank.users.tests.factories import UserFactory
-
 from ..models import Transaction, Category
-
 
 this_year = datetime.now()
 

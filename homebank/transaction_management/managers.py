@@ -6,9 +6,9 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from django.db.models import Max, Min, Q, Sum
 
-from .utils import create_unique_code
-from homebank.users.models import User
 from homebank.expenses.models import MonthlyExpenseSummary
+from homebank.users.models import User
+from .utils import create_unique_code
 
 
 class FileParseResult:

@@ -1,13 +1,13 @@
+from datetime import date, datetime
+from decimal import Decimal
+
 import pytest
 
 from homebank.transaction_management.managers import RabobankCsvRowParser
 from homebank.transaction_management.models import Transaction
-from datetime import date, datetime
-
+from homebank.transaction_management.tests.factories import TransactionFactory
 from homebank.users.models import User
 from homebank.users.tests.factories import UserFactory
-from homebank.transaction_management.tests.factories import TransactionFactory
-from decimal import Decimal
 
 
 @pytest.mark.django_db

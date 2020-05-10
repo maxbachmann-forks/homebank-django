@@ -1,7 +1,8 @@
-from django import template
 from decimal import Decimal
-from babel.numbers import format_currency
 from unicodedata import normalize
+
+from babel.numbers import format_currency
+from django import template
 
 register = template.Library()
 

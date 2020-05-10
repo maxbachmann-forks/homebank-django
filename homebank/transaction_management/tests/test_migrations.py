@@ -1,7 +1,7 @@
 import pytest
 
-from homebank.transaction_management.models import Category
 from homebank.transaction_management.migrations.utils import seed_categories
+from homebank.transaction_management.models import Category
 
 pytestmark = pytest.mark.django_db
 

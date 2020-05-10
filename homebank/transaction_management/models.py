@@ -1,10 +1,10 @@
-from homebank.users.models import User
 from django.core.exceptions import ValidationError
 from django.db import models
 from fuzzywuzzy import process, fuzz
 
 # Create your models here.
 from homebank.transaction_management.managers import TransactionManager, CategoryManager
+from homebank.users.models import User
 
 
 class Category(models.Model):

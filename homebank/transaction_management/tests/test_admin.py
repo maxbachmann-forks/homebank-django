@@ -1,9 +1,8 @@
 import pytest
-
 from django.contrib.messages import get_messages
-from homebank.users.models import User
 
 from homebank.transaction_management.tests.utils import open_file
+
 
 @pytest.mark.django_db
 class TestTransactionAdmin:

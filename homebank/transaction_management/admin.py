@@ -1,14 +1,14 @@
 from io import TextIOWrapper
+
 from django.contrib import admin
+from django.contrib.admin import SimpleListFilter
 from django.http import HttpRequest
 from django.shortcuts import redirect, render
-from django.contrib.admin import SimpleListFilter
-
 # Register your models here.
 from django.urls import path
 
-from .models import Transaction, Category
 from .forms import CsvImportForm
+from .models import Transaction, Category
 
 
 class CategoryAssignFilter(SimpleListFilter):

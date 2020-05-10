@@ -1,13 +1,12 @@
-import pytest
-
 from datetime import date
-from django.test import TestCase
 
-from homebank.users.models import User
+import pytest
 from django.core.exceptions import ValidationError
 
 from homebank.transaction_management.models import Transaction, Category
 from homebank.transaction_management.tests.utils import create_transaction
+from homebank.users.models import User
+
 
 def create_test_transaction():
     user = User.objects.create_user('transaction test user')

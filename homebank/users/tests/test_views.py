@@ -1,7 +1,7 @@
 import pytest
-from django.test import RequestFactory
 from django.contrib.messages.middleware import MessageMiddleware
 from django.contrib.sessions.middleware import SessionMiddleware
+from django.test import RequestFactory
 from django.urls import reverse
 
 from homebank.users.models import User
