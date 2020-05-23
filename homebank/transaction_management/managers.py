@@ -19,13 +19,22 @@ class FileParseResult:
 
 
 class TransactionManager(models.Manager):
-    def for_user(self, user):
-        return super(TransactionManager, self).get_queryset().filter(user=user)
+    def _query_set(self):
+        return super(TransactionManager, self).get_queryset()
+
+    def for_user(self, query_set, user):
+        return query_set.filter(user=user)
+
+    def for_expenses(self, user):
+        return self.for_user(self._query_set().exclude(category__name='Budget'), user)
 
     def total_spent_for_month(self, month: date, user: User):
-        result = self.for_user(user).filter(
-            date__year=month.year, date__month=month.month, category__isnull=False).aggregate(
-                total_outflow=Sum('outflow'), total_inflow=Sum('inflow'))
+        query_set = self.for_expenses(user)
+        result = query_set.filter(
+            date__year=month.year, date__month=month.month, category__isnull=False
+        ).aggregate(
+            total_outflow=Sum('outflow'), total_inflow=Sum('inflow')
+        )
 
         return Decimal(result['total_inflow'] or 0) - Decimal(result['total_outflow'] or 0)
 
@@ -64,7 +73,9 @@ class CategoryManager(models.Manager):
 
         query_set = super(CategoryManager, self).get_queryset()
 
-        query_result = query_set.annotate(
+        query_result = query_set.exclude(
+            name='Budget'
+        ).annotate(
             sum_outflow=Sum("transactions__outflow", filter=month_subquery),
             sum_inflow=Sum("transactions__inflow", filter=month_subquery),
             min_date=Min("transactions__date", filter=total_subquery),

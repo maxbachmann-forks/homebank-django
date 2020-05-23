@@ -65,7 +65,8 @@ class Transaction(models.Model):
 
         transactions_by_description = dict([(t.description, t) for t in transactions])
 
-        transaction_best_match = process.extractOne(transaction_to_assign.description, transactions_by_description, score_cutoff=self.score_threshold)
+        transaction_best_match = process.extractOne(transaction_to_assign.description, transactions_by_description,
+                                                    score_cutoff=self.score_threshold)
 
         if transaction_best_match:
             transaction_to_assign.category = transaction_best_match[0].category
@@ -86,12 +87,5 @@ class Transaction(models.Model):
                 transaction.category = self.category
                 transaction.save()
 
-
-
-
     def __str__(self):
         return f'{self.payee} - {self.memo} ({self.id})'
-
-
-
-

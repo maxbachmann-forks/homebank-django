@@ -12,7 +12,8 @@ def seed_categories(apps, schema_editor):
          'Hieronder vallen belastingen, heffingen en uitgaven aan gas, elektra, internet, tv en telefoon.'),
         ('Vervoer', 'Uitgaven aan uw auto of andere vervoersmiddelen.'),
         ('Vrijetijdsuitgaven', 'Uitgaven aan ontspanning, recreatie, vakantie en contributies.'),
-        ('Onvoorziene uitgaven', 'Hieronder vallen uitgaven, zoals verzekeringen, ziektekosten en studiekosten.')
+        ('Onvoorziene uitgaven', 'Hieronder vallen uitgaven, zoals verzekeringen, ziektekosten en studiekosten.'),
+        ('Budget', 'Inkomsten die niet mee gerekend worden bij uitgaven')
     ]
 
     for category in categories:

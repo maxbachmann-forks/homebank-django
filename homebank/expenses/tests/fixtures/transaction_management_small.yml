@@ -125,3 +125,20 @@
     inflow: "10"
     category: 6
     user: 2
+- model: transaction_management.category
+  pk: 21
+  fields:
+    name: Budget
+    description: Budget stuff
+- model: transaction_management.transaction
+  pk: 22
+  fields:
+    code: d054eab26eba1ac020cd403484b51021
+    to_account_number: NL11RABO0104943866
+    date: 2020-02-21
+    payee: Netpresenter
+    memo: Salaris
+    outflow: null
+    inflow: "2100"
+    category: 21
+    user: 2

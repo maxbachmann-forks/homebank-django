@@ -34,7 +34,7 @@ def test_query_results(february_overview):
     house = next(summary for summary in february_overview if summary.category_id == 2)
     empty = next(summary for summary in february_overview if summary.category_id == 3)
 
-    assert len(february_overview) == len(Category.objects.all())
+    assert len(february_overview) == len(Category.objects.exclude(name='Budget'))
     assert mortgage.sum_outflow == Decimal("911.11")
     assert mortgage.sum_inflow == 0
     assert mortgage.total_outflow == Decimal("1822.22")
@@ -62,6 +62,7 @@ def test_calculates_averages_from_query_results(february_overview: MonthlyExpens
     house = next(summary for summary in february_overview if summary.category_id == 2)
     empty = next(summary for summary in february_overview if summary.category_id == 3)
     free_time = next(summary for summary in february_overview if summary.category_id == 6)
+    budget = [summary for summary in february_overview if summary.category_id == 21]
 
     # Asserts from computed
     assert mortgage.average_monthly_outflow == Decimal("911.11")
@@ -76,3 +77,5 @@ def test_calculates_averages_from_query_results(february_overview: MonthlyExpens
     assert free_time.average_monthly_outflow == Decimal("34.25")
     assert free_time.average_monthly_inflow == Decimal("22.5")
     assert free_time.average_monthly_balance == Decimal("-11.75")
+
+    assert len(budget) == 0
