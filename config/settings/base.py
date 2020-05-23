@@ -80,7 +80,8 @@ THIRD_PARTY_APPS = [
     "allauth",
     "allauth.account",
     "allauth.socialaccount",
-    "sass_processor"
+    "sass_processor",
+    "svg"
 ]
 
 LOCAL_APPS = [

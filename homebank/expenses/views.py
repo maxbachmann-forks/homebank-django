@@ -14,7 +14,6 @@ class RedirectToMonthView(LoginRequiredMixin, RedirectView):  # TODO: I know thi
         return reverse('expenses:month', kwargs={'date': previous_month.strftime('%Y-%m')})
 
 
-
 class MonthView(LoginRequiredMixin, TemplateView):
     template_name = "expenses/month.html"
 
@@ -24,8 +23,16 @@ class MonthView(LoginRequiredMixin, TemplateView):
         date = datetime.strptime(date_str, '%Y-%m')
         user = self.request.user
 
+        context['date_previous'] = self._get_date_with_month_offset(date, -1)
+        context['date_next'] = self._get_date_with_month_offset(date, 1)
         context['date'] = date_str
         context['total_spent'] = Transaction.objects.total_spent_for_month(date, user)
         context['expenses_per_category'] = Category.objects.overview_for_month(date, user)
 
         return context
+
+    def _get_date_with_month_offset(self, date: datetime, date_offset: int) -> str:
+        return self._date_to_month_str(date + relativedelta(months=date_offset))
+
+    def _date_to_month_str(self, date: datetime) -> str:
+        return datetime.strftime(date, '%Y-%m')

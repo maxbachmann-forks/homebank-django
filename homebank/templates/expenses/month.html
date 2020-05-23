@@ -2,6 +2,7 @@
 {% load absolute_price %}
 {% load percentage_of %}
 {% load sass_tags %}
+{% load svg %}
 
 {% block page_css %}
   <link href="{% sass_src 'sass/expenses.scss' %}" rel="stylesheet" type="text/css"/>
@@ -15,7 +16,17 @@
 
 
 {% block content %}
-  <h1>Uitgaven {{ date }}</h1>
+  <div class="d-flex align-items-center">
+    <div class="actions d-flex align-items-center">
+      <div class="icon previous">
+        <a href="{% url "expenses:month" date_previous %}">{% svg 'chevron-up' %}</a>
+      </div>
+      <div class="icon next">
+        <a href="{% url "expenses:month" date_next %}">{% svg 'chevron-up' %}</a>
+      </div>
+    </div>
+    <h1>Uitgaven {{ date }}</h1>
+  </div>
 
   <div class="card">
     <div class="card-body shadow-sm">
@@ -25,6 +36,7 @@
       <h4>
         {{ total_spent|absolute_price }}
       </h4>
+
       <hr/>
       <ul class="month-list">
         {% for category in expenses_per_category %}
