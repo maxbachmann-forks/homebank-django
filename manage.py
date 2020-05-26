@@ -1,16 +1,13 @@
 #!/usr/bin/env python
 import os
 import sys
+from pathlib import Path
 
 if __name__ == "__main__":
-    os.environ.setdefault(
-        "DJANGO_SETTINGS_MODULE", "config.settings.local"
-    )
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings.local")
 
     try:
-        from django.core.management import (
-            execute_from_command_line,
-        )
+        from django.core.management import execute_from_command_line
     except ImportError:
         # The above import may fail for some other reason. Ensure that the
         # issue is really that Django is missing to avoid masking other
@@ -28,7 +25,7 @@ if __name__ == "__main__":
 
     # This allows easy placement of apps within the interior
     # homebank directory.
-    current_path = os.path.dirname(os.path.abspath(__file__))
-    sys.path.append(os.path.join(current_path, "homebank"))
+    current_path = Path(__file__).parent.resolve()
+    sys.path.append(str(current_path / "homebank"))
 
     execute_from_command_line(sys.argv)

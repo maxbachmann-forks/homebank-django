@@ -13,7 +13,8 @@ def seed_categories(apps, schema_editor):
         ('Vervoer', 'Uitgaven aan uw auto of andere vervoersmiddelen.'),
         ('Vrijetijdsuitgaven', 'Uitgaven aan ontspanning, recreatie, vakantie en contributies.'),
         ('Onvoorziene uitgaven', 'Hieronder vallen uitgaven, zoals verzekeringen, ziektekosten en studiekosten.'),
-        ('Budget', 'Inkomsten die niet mee gerekend worden bij uitgaven')
+        ('Budget', 'Inkomsten die niet mee gerekend worden bij uitgaven'),
+        ('Sparen', 'Transacties die opzij gezet worden. Niet echt inkomsten of uitgaven')
     ]
 
     for category in categories:

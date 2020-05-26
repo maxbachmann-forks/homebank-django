@@ -23,11 +23,21 @@ class MonthView(LoginRequiredMixin, TemplateView):
         date = datetime.strptime(date_str, '%Y-%m')
         user = self.request.user
 
+        expenses_per_category = Category.objects.overview_for_month(date, user)
+        total_income = Transaction.objects.total_budget_for_month(date, user)
+        total_spent = Transaction.objects.total_spent_for_month(date, user)
+        total_balans = total_income + total_spent
+        savings = self._get_savings_from_overview(expenses_per_category)
+
         context['date_previous'] = self._get_date_with_month_offset(date, -1)
         context['date_next'] = self._get_date_with_month_offset(date, 1)
         context['date'] = date_str
-        context['total_spent'] = Transaction.objects.total_spent_for_month(date, user)
-        context['expenses_per_category'] = Category.objects.overview_for_month(date, user)
+        context['total_income'] = total_income
+        context['total_spent'] = total_spent
+        context['expenses_per_category'] = expenses_per_category
+        context['total_balans'] = total_balans
+        context['total_savings'] = savings - total_balans
+        context['savings'] = savings * -1
 
         return context
 
@@ -36,3 +46,12 @@ class MonthView(LoginRequiredMixin, TemplateView):
 
     def _date_to_month_str(self, date: datetime) -> str:
         return datetime.strftime(date, '%Y-%m')
+
+    def _get_savings_from_overview(self, expenses_per_category):
+        try:
+            savings = next(
+                summary for summary in expenses_per_category if summary.category.name == 'Sparen').balance_of_month
+        except StopIteration:
+            savings = 0
+
+        return savings

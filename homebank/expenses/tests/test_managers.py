@@ -3,33 +3,26 @@
 # and behind those an average of the past year
 from datetime import datetime, date
 from decimal import Decimal
-from pathlib import Path
+from typing import List
 
 import pytest
-from django.core.management import call_command
 
 from homebank.expenses.models import MonthlyExpenseSummary
 from homebank.transaction_management.models import Category
 from homebank.users.models import User
+from homebank.conftest import load_fixture_data
 
 pytestmark = pytest.mark.django_db
 
 
-@pytest.fixture(autouse=True)
-def load_data(django_db_setup, django_db_blocker):
-    with django_db_blocker.unblock():
-        call_command('loaddata', Path(__file__).parent / "./fixtures/users.yml")
-        call_command('loaddata', Path(__file__).parent / "./fixtures/transaction_management_small")
-
-
 @pytest.fixture()
-def february_overview():
+def february_overview() -> List[MonthlyExpenseSummary]:
     user = User.objects.get(username='admin')
     month = datetime(2020, 2, 1)
     return Category.objects.overview_for_month(month, user)
 
 
-def test_query_results(february_overview):
+def test_query_results(load_fixture_data, february_overview: List[MonthlyExpenseSummary]):
     mortgage = next(summary for summary in february_overview if summary.category_id == 1)
     house = next(summary for summary in february_overview if summary.category_id == 2)
     empty = next(summary for summary in february_overview if summary.category_id == 3)
@@ -57,7 +50,7 @@ def test_query_results(february_overview):
     assert empty.max_transaction_date is None
 
 
-def test_calculates_averages_from_query_results(february_overview: MonthlyExpenseSummary):
+def test_calculates_averages_from_query_results(load_fixture_data, february_overview: MonthlyExpenseSummary):
     mortgage = next(summary for summary in february_overview if summary.category_id == 1)
     house = next(summary for summary in february_overview if summary.category_id == 2)
     empty = next(summary for summary in february_overview if summary.category_id == 3)

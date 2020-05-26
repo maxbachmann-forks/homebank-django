@@ -5,6 +5,7 @@ from decimal import Decimal
 class MonthlyExpenseSummary():
     def __init__(self, date_of_month: datetime, category):
         self.category_id = category.id
+        self.category = category
         self.name = category.name
         self.description = category.description
         self.date_of_month = date_of_month

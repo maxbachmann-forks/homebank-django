@@ -1,56 +1,84 @@
 {% extends 'base.html' %}
 {% load absolute_price %}
+{% load price %}
 {% load percentage_of %}
 {% load sass_tags %}
 {% load svg %}
 
 {% block page_css %}
-  <link href="{% sass_src 'sass/expenses.scss' %}" rel="stylesheet" type="text/css"/>
+<link href="{% sass_src 'sass/expenses.scss' %}" rel="stylesheet" type="text/css" />
 {% endblock %}
 
 
 {% block title %}
-  {{ date }} | Expenses
+{{ date }} | Expenses
 {% endblock title %}
 
 
 
 {% block content %}
-  <div class="d-flex align-items-center">
-    <div class="actions d-flex align-items-center">
-      <div class="icon previous">
-        <a href="{% url "expenses:month" date_previous %}">{% svg 'chevron-up' %}</a>
+<div class="d-flex align-items-center">
+  <div class="actions d-flex align-items-center">
+    <div class="icon previous">
+      <a href="{% url "expenses:month" date_previous %}">{% svg 'chevron-up' %}</a>
+    </div>
+    <div class="icon next">
+      <a href="{% url "expenses:month" date_next %}">{% svg 'chevron-up' %}</a>
+    </div>
+  </div>
+  <h1>Uitgaven {{ date }}</h1>
+</div>
+
+<div class="card">
+  <div class="card-body shadow-sm">
+    <div class="d-flex">
+      <div>
+        <div>
+          <p> Inkomen deze maand: </p>
+          <h4> {{ total_income|price }} </h4>
+        </div>
+        <div>
+          <p> Uitgegeven deze maand: </p>
+          <h4> {{ total_spent|absolute_price }} </h4>
+        </div>
+        <div>
+          <p> Balans deze maand: </p>
+          <h4> {{ total_balans|price }} </h4>
+        </div>
       </div>
-      <div class="icon next">
-        <a href="{% url "expenses:month" date_next %}">{% svg 'chevron-up' %}</a>
+      <div class="ml-5">
+        <div>
+          <p> Totaal gespaard: </p>
+          <h4> {{ total_balans|price }} </h4>
+          <h4> {{ savings|price }} </h4>
+          <h4> ---------- +</h4>
+          <h4> {{ total_savings|absolute_price }} </h4>
+        </div>
+
       </div>
     </div>
-    <h1>Uitgaven {{ date }}</h1>
-  </div>
 
-  <div class="card">
-    <div class="card-body shadow-sm">
-      <p>
-        Uitgaven deze maand:
-      </p>
-      <h4>
-        {{ total_spent|absolute_price }}
-      </h4>
-
-      <hr/>
-      <ul class="month-list">
+    <hr />
+    <table class="table">
+      {% comment %} <thead>
+        <tr>
+          <th>
+        </tr>
+      </thead> {% endcomment %}
+      <tbody>
         {% for category in expenses_per_category %}
-          <li>
-            <b>{{ category.name }}</b>
-            <div class="d-flex">
-              <div class="flex-grow-1">
-                <progress class="w-100" max="100" value="{{ category.balance_of_month|percentage_of:total_spent }}"/>
-              </div>
-              <div class="flex-grow-1 text-align-left ml-2">{{ category.balance_of_month|absolute_price }}</div>
-            </div>
-          </li>
+        <tr>
+          <td><b>{{ category.name }}</b></td>
+          <td class="category-balance">{{ category.balance_of_month|price }}</td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <progress class="w-100" max="100" value="{{ category.balance_of_month|percentage_of:total_spent }}" />
+          </td>
+        </tr>
         {% endfor %}
-      </ul>
-    </div>
+      </tbody>
+    </table>
   </div>
+</div>
 {% endblock content %}

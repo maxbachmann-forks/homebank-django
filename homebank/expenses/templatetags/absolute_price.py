@@ -9,5 +9,9 @@ register = template.Library()
 
 @register.filter
 def absolute_price(number_str):
-    price = abs(Decimal(number_str))
+    price = 0
+
+    if number_str != '':
+        price = abs(Decimal(number_str))
+
     return normalize('NFKD', format_currency(price, 'EUR', locale='nl_NL'))

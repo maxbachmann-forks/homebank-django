@@ -1,4 +1,7 @@
+from pathlib import Path
+
 import pytest
+from django.core.management import call_command
 from django.test import RequestFactory
 
 from homebank.users.models import User
@@ -18,3 +21,10 @@ def user() -> User:
 @pytest.fixture
 def request_factory() -> RequestFactory:
     return RequestFactory()
+
+
+@pytest.fixture
+def load_fixture_data(django_db_setup, django_db_blocker):
+    with django_db_blocker.unblock():
+        call_command('loaddata', Path(__file__).parent / "./expenses/tests/fixtures/users.yml")
+        call_command('loaddata', Path(__file__).parent / "./expenses/tests/fixtures/transaction_management_small")

@@ -1,6 +1,7 @@
 import csv
 from datetime import datetime, date
 from decimal import InvalidOperation, Decimal
+from typing import List
 
 from django.core.exceptions import ValidationError
 from django.db import models
@@ -22,14 +23,19 @@ class TransactionManager(models.Manager):
     def _query_set(self):
         return super(TransactionManager, self).get_queryset()
 
-    def for_user(self, query_set, user):
-        return query_set.filter(user=user)
+    def for_user(self, user):
+        return self._query_set().filter(user=user)
 
-    def for_expenses(self, user):
-        return self.for_user(self._query_set().exclude(category__name='Budget'), user)
+    def for_user_expenses(self, user):
+        return self.for_user(user).exclude(category__name__in=['Budget', 'Sparen'])
+
+    def total_budget_for_month(self, month: date, user: User) -> float:
+        return \
+        self.for_user(user).filter(category__name='Budget', date__year=month.year, date__month=month.month).aggregate(
+            Sum('inflow'))['inflow__sum'] or 0
 
     def total_spent_for_month(self, month: date, user: User):
-        query_set = self.for_expenses(user)
+        query_set = self.for_user_expenses(user)
         result = query_set.filter(
             date__year=month.year, date__month=month.month, category__isnull=False
         ).aggregate(
@@ -66,7 +72,7 @@ class TransactionManager(models.Manager):
 
 
 class CategoryManager(models.Manager):
-    def overview_for_month(self, month: date, user: User):
+    def overview_for_month(self, month: date, user: User) -> List[MonthlyExpenseSummary]:
         month_subquery = Q(transactions__date__year=month.year,
                            transactions__date__month=month.month, transactions__user__id=user.id)
         total_subquery = Q(transactions__user__id=user.id)
