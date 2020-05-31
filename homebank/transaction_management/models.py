@@ -1,6 +1,6 @@
 from django.core.exceptions import ValidationError
 from django.db import models
-from fuzzywuzzy import process, fuzz
+from rapidfuzz import process, fuzz
 
 # Create your models here.
 from homebank.transaction_management.managers import TransactionManager, CategoryManager
@@ -81,7 +81,7 @@ class Transaction(models.Model):
         transactions = Transaction.objects.for_user(self.user).filter(category__isnull=True)
 
         for transaction in transactions:
-            result = fuzz.WRatio(transaction.description, self.description)
+            result = fuzz.WRatio(transaction.description, self.description, score_cutoff=self.score_threshold)
 
             if result > self.score_threshold:
                 transaction.category = self.category

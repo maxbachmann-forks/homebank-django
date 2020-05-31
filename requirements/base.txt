@@ -8,7 +8,7 @@ hiredis==1.0.1  # https://github.com/redis/hiredis-py
 unidecode==1.1.1 # https://pypi.org/project/Unidecode/
 python-dateutil~=2.8.1
 testfixtures~=6.14.1
-fuzzywuzzy==0.18.0
+rapidfuzz==0.9.1
 python-magic-bin==0.4.14
 libsass==0.20.0
 
